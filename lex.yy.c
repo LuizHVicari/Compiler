@@ -366,11 +366,11 @@ struct yy_trans_info
 static const flex_int16_t yy_accept[120] =
     {   0,
         0,    0,   46,   44,    3,    1,   22,   23,   33,   30,
-       10,   31,   40,   42,    9,    5,   26,   25,   27,   39,
+       10,   31,   40,   40,    9,    5,   26,   25,   27,   39,
        39,   39,   35,   39,   39,   39,   39,   39,   39,   39,
-       39,   39,   44,   42,    0,   14,   28,   24,   29,   43,
+       39,   39,   44,   40,    0,   14,   28,   24,   29,   43,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
-       32,   39,   39,   15,   39,   39,    0,    2,   41,   39,
+       32,   39,   39,   15,   39,   39,    0,    2,   42,   39,
        34,   39,   39,   39,   39,   39,    8,   39,   39,   39,
        38,   39,   39,   39,    6,   39,   39,   39,   39,   39,
        19,   39,   39,   39,   20,   39,   12,   39,   39,   39,
@@ -1028,17 +1028,17 @@ YY_RULE_SETUP
 case 40:
 YY_RULE_SETUP
 #line 74 "anlex.l"
-{return NUM;}                  
+{yylval.value = atoi(yytext); return NUM;}                  
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 75 "anlex.l"
-{return NUM;} 
+{return NUM;}                  
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 76 "anlex.l"
-{yylval.value = atoi(yytext); return NUM;}                  
+{return NUM;} 
 	YY_BREAK
 case 43:
 YY_RULE_SETUP

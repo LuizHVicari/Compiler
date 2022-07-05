@@ -71,9 +71,9 @@ booleano [01]
 "nao"               {return NOT;}
 
 {id}                {yylval.lex_value = strdup(yytext); return ID;}
+{inteiro}           {yylval.value = atoi(yytext); return NUM;}                  
 {booleano}          {return NUM;}                  
 {real}              {return NUM;} 
-{inteiro}           {yylval.value = atoi(yytext); return NUM;}                  
 {idErro}            {printf("Erro lexico na linha %d ", lines); errors++; return -1;} 
 .                   {printf("Erro lexico na linha %d ", lines); errors++; return -1;} 
 %%
