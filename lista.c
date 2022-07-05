@@ -1,5 +1,14 @@
 #include "lista.h"
 
+// cria a lista (inicialmente vazia)
+lista* ini_lista(void){
+    lista *list = malloc(sizeof(lista));
+    // lista vazia (ainda não tem cabeça)
+    list->head = NULL;
+
+    return list;
+}
+
 // cria uma struct de atributos das palavras
 variavel* new_var(char* lex_value, int value){
     variavel *var = malloc(sizeof(variavel));
@@ -10,15 +19,6 @@ variavel* new_var(char* lex_value, int value){
     var->lex_value = lex_value;
     return var;
 } 
-
-// cria a lista (inicialmente vazia)
-lista* ini_lista(void){
-    lista *list = malloc(sizeof(lista));
-    // lista vazia (ainda não tem cabeça)
-    list->head = NULL;
-
-    return list;
-}
 
 int insert_node(lista* list, char* lex_value, int value){
     variavel *run;

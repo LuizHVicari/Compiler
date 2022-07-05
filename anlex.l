@@ -10,16 +10,13 @@
     extern YYSTYPE yylval;
 %}
 
+prog "programa"
 id [a-zA-Z][0-9a-zA-Z_]*
 idErro {id}[^(\n\t" ")]+
-booleano [01]
 digito [0-9]+
 inteiro "-"?{digito}
-zeroErro "-"?[0]{digito}
-zeroNegErro "-"[0]
 real {inteiro}"."{digito}
-digitoErro {digito}[^(\n\t" ")]+
-prog "programa"
+booleano [01]
 
 %%
 \n                  {lines++;}
@@ -74,12 +71,9 @@ prog "programa"
 "nao"               {return NOT;}
 
 {id}                {yylval.lex_value = strdup(yytext); return ID;}
-{zeroErro}          {printf("Erro lexico na linha %d ", lines); errors++; return -1;} 
-{zeroNegErro}       {printf("Erro lexico na linha %d ", lines); errors++; return -1;} 
 {booleano}          {return NUM;}                  
 {real}              {return NUM;} 
 {inteiro}           {yylval.value = atoi(yytext); return NUM;}                  
-{digitoErro}        {printf("Erro lexico na linha %d ", lines); errors++; return -1;} 
 {idErro}            {printf("Erro lexico na linha %d ", lines); errors++; return -1;} 
 .                   {printf("Erro lexico na linha %d ", lines); errors++; return -1;} 
 %%

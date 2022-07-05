@@ -44,6 +44,21 @@ A linguagem na qual o projeto se baseia é a linguagem Small L, cuja gramatica �
 
 Todos os simbolos no formato rodeados por maior e menos são variáveis, os demais são terminais
 
+## Problemas
+
+O compilador desenvolvido não consegue trabalhar com valores numéricos não atribuídos a uma variável, por exemplo:
+
+### Não funciona:
+```
+x := x + 1
+```
+
+### Funciona:
+```
+y := 1
+x := x + y
+```
+
 ## Agradecimentos e Outras Soluções para o Projeto
 
 Esse projeto é baseado no compilador dos colegas [João Henrique Pereira Machado](https://github.com/joaoHenriqueMachado) e [Daniel Gustavo Favero](https://github.com/danielg-favero). Ambos tem também um compilador desenvolvido em suas páginas.

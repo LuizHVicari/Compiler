@@ -1,7 +1,7 @@
 ansin.o
 ansin.tab.c
 ansin.tab.h
-lexx.yy.c
+lex.yy.c
 lista.o
 main
 main.o
