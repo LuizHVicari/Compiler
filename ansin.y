@@ -31,57 +31,57 @@ lista *list;
 
 // $<value>$ = $<value>x: o termo que deriva a outro recebe o valor do termo da posição x da palavra
 
-S: PROGRAM identificador SEMICOLON bloco {printf("<programa> := programa <identificador> ; <bloco>\nCorreto\n"); clear_lista(list);}
+S: PROGRAM identificador SEMICOLON bloco {clear_lista(list);}
   ;
-bloco: VAR declaracao INIT comandos END {printf("<bloco> := var <declaracao> inicio <comandos> fim\n");}
+bloco: VAR declaracao INIT comandos END {}
   ;
-declaracao: nome_var COLON tipo SEMICOLON {printf("<declaracao> := <nome_var> : <tipo> ;\n");}
-        | nome_var COLON tipo SEMICOLON declaracao {printf("<declaracao> := <nome_var> : <tipo> ; <declaracao>\n");}
+declaracao: nome_var COLON tipo SEMICOLON {}
+        | nome_var COLON tipo SEMICOLON declaracao {}
         ;
-nome_var: identificador {printf("<nome_var> := identificador\n");} 
-        | identificador COMMA nome_var {printf("<nome_var> := identificador , <nome_var>\n");}
+nome_var: identificador {}
+        | identificador COMMA nome_var {}
         ;
-tipo: INTEGER {printf("<tipo> := inteiro\n");} 
-        | FLOAT {printf("<tipo> := real\n");} 
-        | BOOLEAN {printf("<tipo> := booleano\n");}
+tipo: INTEGER {}
+        | FLOAT {}
+        | BOOLEAN {}
         ;
-comandos: comando {printf("<comandos> := <comando> \n");} 
-        | comando SEMICOLON comandos {printf("<comandos> := <comando> ; <comandos>\n");} 
+comandos: comando {}
+        | comando SEMICOLON comandos {} 
         ;
-comando: comando_combinado
-        | comando_aberto
+comando: comando_combinado {}
+        | comando_aberto {}
         ;
-comando_aberto: IF expressao THEN comando 
-        | IF expressao THEN comando_combinado ELSE comando_aberto
+comando_aberto: IF expressao THEN comando {}
+        | IF expressao THEN comando_combinado ELSE comando_aberto {}
         ;
-comando_combinado: IF expressao THEN comando_combinado ELSE comando_combinado 
-        | atribuicao {printf("<comando> := <atribuicao>\n");}
-        | enquanto {printf("<comando> := <enquanto>\n");} 
-        | leitura {printf("<comando> := <leitura>\n");} 
-        | escrita {printf("<comando> := <scrita>\n");}
+comando_combinado: IF expressao THEN comando_combinado ELSE comando_combinado {}
+        | atribuicao {}
+        | enquanto {}
+        | leitura {}
+        | escrita {}
         ;
-atribuicao: identificador ATRIB expressao {printf("<atribuicao> := identificador <expressao> E\n"); if(list == NULL || list->head == NULL){
+atribuicao: identificador ATRIB expressao {if(list == NULL || list->head == NULL){
         list = ini_lista();
 } insert_node(list, $<lex_value>1, $<value>3);
 }
         ;
-enquanto: WHILE expressao DO comando_combinado {printf("<repeticao> := enquanto E faca <comando>\n");}
+enquanto: WHILE expressao DO comando_combinado {}
         ;
-leitura: READ OPPAR ID CLPAR {printf("<leitura> := leia ( <identificador> )\n");}
+leitura: READ OPPAR ID CLPAR {}
         ;
-escrita: WRITE OPPAR ID CLPAR {printf("<escrita> := escreva (<identificador>)\n"); printf("%d\n", var_value(list, $<lex_value>3));}
+escrita: WRITE OPPAR ID CLPAR {printf("%d\n", var_value(list, $<lex_value>3));}
         ;
-expressao: simples {printf("<expressao> := <simples>\n"); $<value>$ = $<value>1;} 
-        | simples op_relacional simples {printf("<expressao> := <simples> <op_relacional> <simples>\n");}
+expressao: simples {$<value>$ = $<value>1;} 
+        | simples op_relacional simples {}
         ;
-op_relacional: OTHER {printf("<op_relacional> := <>\n");} 
-        | EQUAL {printf("<op_relacional> := =\n");}
-        | LESS {printf("<op_relacional> := <\n");}
-        | GREATER {printf("<op_relacional> := >\n");}
-        | LESSEQ {printf("<op_relacional> := <=\n");}
-        | GREATEREQ {printf("<op_relacional> := >=\n");}
+op_relacional: OTHER {}
+        | EQUAL {}
+        | LESS {}
+        | GREATER {}
+        | LESSEQ {}
+        | GREATEREQ {}
         ;
-simples: termo operador termo {printf("<simples> := <termo> <operador> <termo>\n");
+simples: termo operador termo {
         // analisa o operador (2 valor léxico da palavra) para realizar a operação correta
         if(strcmp($<lex_value>2, "+") == 0){
                 $<value>$ = $<value>1 + $<value>3;
@@ -89,14 +89,14 @@ simples: termo operador termo {printf("<simples> := <termo> <operador> <termo>\n
                 $<value>$ = $<value>1 - $<value>3;
         }
         }
-        | termo {printf("simples := <termo>\n"); $<value>$ = $<value>1;}
+        | termo {$<value>$ = $<value>1;}
         ;
-operador: PLUS {printf("<operador> := +\n");}
-        | MINUS {printf("<operador> := -\n");}
-        | OR {printf("<operador> := ou\n");}
+operador: PLUS {}
+        | MINUS {}
+        | OR {}
         ;
-termo: fator {printf("<termo> := <fator>\n"); $<value>$ = $<value>1;}
-        | fator op fator {printf("<termo> := <fator> <op> <fator>\n");
+termo: fator {$<value>$ = $<value>1;}
+        | fator op fator {
                 if(strcmp($<lex_value>2, "*") == 0){
                         $<value>$ = $<value>1 * $<value>3;
                 }else if(strcmp($<lex_value>2 , "div") == 0){
@@ -104,25 +104,19 @@ termo: fator {printf("<termo> := <fator>\n"); $<value>$ = $<value>1;}
                 }
         }
         ;
-op: MULT {printf("<op> := * \n");}
-        | DIV {printf("<op> := div \n");}
-        | AND {printf("<op> := e \n");}
+op: MULT {}
+        | DIV {}
+        | AND {}
         ;
-fator: identificador {printf("<fator> := <identificador> \n");
-        $<value>$ = var_value(list, $<lex_value>1);
-}
-        | numero {printf("<fator> := <numero> \n");
-                $<value>$ = $<value>1;
-        }
-        | OPPAR expressao CLPAR {printf("<fator> := ( expressao ) \n");
-                $<value>$ = $<value>2;
-        }
-        | TR {printf("<fator> := verdadeiro \n");}
-        | FS {printf("<fator> := falso \n");}
-        | NOT fator {printf("<fator> := not <fator> \n");}
+fator: identificador {$<value>$ = var_value(list, $<lex_value>1);}
+        | numero {$<value>$ = $<value>1;}
+        | OPPAR expressao CLPAR {$<value>$ = $<value>2;}
+        | TR {}
+        | FS {}
+        | NOT fator {}
         ;
-identificador: ID {printf("<identificador> := id \n");}
+identificador: ID {}
         ;
-numero: NUM {printf("<numero> := num \n"); $<value>$ = $<value>1;}
+numero: NUM {$<value>$ = $<value>1;}
         ;
 %%

@@ -5,5 +5,5 @@ lex.yy.c
 lista.o
 main
 main.o
-teste1.sml
-teste2.sml
+teste_fat.sml
+teste_enunciado.sml
