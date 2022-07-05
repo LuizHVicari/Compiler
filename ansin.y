@@ -71,8 +71,8 @@ leitura: READ OPPAR ID CLPAR {printf("<leitura> := leia ( <identificador> )\n");
         ;
 escrita: WRITE OPPAR ID CLPAR {printf("<escrita> := escreva (<identificador>)\n"); printf("%d\n", var_value(list, $<lex_value>3));}
         ;
-expressao: simples {printf("<expressao> := <simples>\n");} 
-        | simples op_relacional simples {printf("<expressao> := <simples> <op_relacional> <simples>\n"); $<value>$ = $<value>1;}
+expressao: simples {printf("<expressao> := <simples>\n"); $<value>$ = $<value>1;} 
+        | simples op_relacional simples {printf("<expressao> := <simples> <op_relacional> <simples>\n");}
         ;
 op_relacional: OTHER {printf("<op_relacional> := <>\n");} 
         | EQUAL {printf("<op_relacional> := =\n");}
