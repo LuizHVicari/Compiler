@@ -1,6 +1,9 @@
-lex.yy.c
+ansin.o
+ansin.tab.c
+ansin.tab.h
+lexx.yy.c
+lista.o
 main
 main.o
-parser.o
-parser.tab.c
-parser.tab.h
+teste1.sml
+teste2.sml

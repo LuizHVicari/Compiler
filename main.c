@@ -1,10 +1,11 @@
 #include <stdio.h>
-#include "lex.yy.c"
+#include "lex.yy.c" // erro porque ainda não foi criado
 
 extern int yyparse (void);
 
 void yyerror(char const *message){
-    printf("\nSintaticamente incorreto");
+    //printf("\nError: %s", message);
+    printf("\nIncorreto (analisador sintatico)");
 }
 
 int main(int argc, char const *argv[]) {
